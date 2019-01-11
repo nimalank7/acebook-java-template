@@ -24,12 +24,20 @@ public class HomeController {
 
 	@RequestMapping(value = "/greeting")
 	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+	public String greeting(@RequestParam("name") String name, @RequestParam("surname") String surname, Model model) {
 		model.addAttribute("name", name);
+		model.addAttribute("surname", surname);
 
 		return "greeting";
 	}
 
+	@GetMapping("/post")
+	public String post(Model model){
+		Post example = new Post("this is a post");
+		Post post = postRepository.findById((long)1).get();
+		model.addAttribute("post", post);
+		return "posted";
+	}
 
 
 }
